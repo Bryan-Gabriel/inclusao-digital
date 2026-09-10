@@ -4,8 +4,6 @@ Projeto acadêmico desenvolvido para aplicar, na prática, o uso correto de HTML
 
 ## Acesso ao site
 
-Substituir pelo link do GitHub Pages, ex: `https://seu-usuario.github.io/acesso-digital/`
-
 ## Sobre o projeto
 
 O site simula a página institucional de uma ONG fictícia chamada Acesso Digital, cuja missão é conscientizar desenvolvedores, empresas e instituições sobre a importância da acessibilidade na web. O conteúdo e a estrutura das páginas foram pensados como exemplo de aplicação dos conceitos estudados em sala de aula.
