@@ -2,6 +2,10 @@
 
 Projeto acadêmico desenvolvido para aplicar, na prática, o uso correto de HTML5 semântico e boas práticas de acessibilidade digital na construção de páginas web.
 
+## Acesso ao site
+
+https://bryan-gabriel.github.io/inclusao-digital/
+
 ## Sobre o projeto
 
 O site simula a página institucional de uma ONG fictícia chamada Acesso Digital, cuja missão é conscientizar desenvolvedores, empresas e instituições sobre a importância da acessibilidade na web.
