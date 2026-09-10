@@ -2,11 +2,9 @@
 
 Projeto acadêmico desenvolvido para aplicar, na prática, o uso correto de HTML5 semântico e boas práticas de acessibilidade digital na construção de páginas web.
 
-## Acesso ao site
-
 ## Sobre o projeto
 
-O site simula a página institucional de uma ONG fictícia chamada Acesso Digital, cuja missão é conscientizar desenvolvedores, empresas e instituições sobre a importância da acessibilidade na web. O conteúdo e a estrutura das páginas foram pensados como exemplo de aplicação dos conceitos estudados em sala de aula.
+O site simula a página institucional de uma ONG fictícia chamada Acesso Digital, cuja missão é conscientizar desenvolvedores, empresas e instituições sobre a importância da acessibilidade na web.
 
 ## Estrutura de páginas
 
@@ -43,4 +41,4 @@ Bryan Gabriel
 
 ## Tecnologias utilizadas
 
-HTML5 semântico, CSS3 e boas práticas de acessibilidade web (WCAG).
+HTML5 semântico e boas práticas de acessibilidade web (WCAG).
