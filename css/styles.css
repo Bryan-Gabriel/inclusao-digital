@@ -1,0 +1,589 @@
+:root {
+/* Variaveis para paleta de cores */
+--color-primary: #0b5fff;
+--color-primary-dark: #0847bf;
+--color-primary-light: #e5efff;
+
+--color-secondary: #00a676;
+--color-secondary-dark: #00805b;
+
+--color-accent: #f2a900;
+
+--color-neutral-900: #1a1a1a;
+--color-neutral-700: #4d4d4d;
+--color-neutral-400: #9aa0a6;
+--color-neutral-200: #e1e4e8;
+--color-neutral-100: #f5f7fa;
+--color-white: #ffffff;
+
+--color-error: #c62828;
+
+/* Bordas */
+--border-radius-base: 8px;
+
+/* Tipografia */
+--font-family-base: "SEGOE UI", 'roboto', sans-serif, 'Arial';
+--font-weight-regular: 400;
+--font-weight-medium: 600;
+--font-weight-bold: 700;
+
+--font-size-sm: 0.875rem;
+--font-size-base: 1rem;
+--font-size-md: 1.25rem;
+--font-size-lg: 1.75rem;
+--font-size-xl: 2.5rem;
+
+--line-height-base: 1.6;
+--line-height-heading: 1.25;
+
+/* Espaçamento */
+--space-1: 0.25rem;
+--space-2: 0.5rem;
+--space-3: 1rem;
+--space-4: 1.5rem;
+--space-5: 2rem;
+--space-6: 3rem;
+--space-7: 4rem;
+}
+
+/* Aplicaçao do CSS */
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-neutral-900);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--border-radius-base);
+}
+
+.col-md-6 img {
+  max-height: 200px;
+  object-fit: cover;
+  width: 70%;
+}
+
+h1, h2, h3 {
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-heading);
+  margin: 0 0 var(--space-3) 0;
+}
+
+h1 { font-size: var(--font-size-xl); }
+h2 { font-size: var(--font-size-lg); }
+h3 { font-size: var(--font-size-md); font-weight: var(--font-weight-medium); }
+
+a {
+  color: var(--color-primary);
+}
+a:hover { color: var(--color-primary-dark); }
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+header {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+header h1 { color: var(--color-white); }
+
+footer {
+  background-color: var(--color-neutral-900);
+  color: var(--color-neutral-200);
+}
+
+button {
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  border: none;
+}
+button:hover { background-color: var(--color-secondary-dark); }
+
+/* Botão de fato estilizado */
+button {
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--border-radius-base);
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+button:hover { background-color: var(--color-secondary-dark); }
+
+/* Links de call-to-action com aparência de botão */
+.button {
+  display: inline-block;
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  text-decoration: none;
+  border-radius: var(--border-radius-base);
+  padding: var(--space-2) var(--space-4);
+  font-weight: var(--font-weight-medium);
+}
+.button:hover { background-color: var(--color-secondary-dark); }
+
+/* Seção de destaque com fundo azul claro */
+.highlight {
+  background-color: var(--color-primary-light);
+  padding: var(--space-5);
+  border-radius: var(--border-radius-base);
+}
+
+legend {
+  color: var(--color-primary);
+}
+
+input, select {
+  border: 1px solid var(--color-neutral-400);
+}
+
+/* Respiro entre seções e nav */
+nav[aria-label="Main Navigation"] .container,
+nav[aria-label="Navegação secundária"] .container {
+  padding-block: var(--space-3);
+}
+
+main .container {
+  padding-block: var(--space-6);
+}
+
+section, article {
+  margin-bottom: var(--space-3);
+}
+
+/* Separação visual sutil entre seções */
+section + section,
+article + article {
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-neutral-200);
+}
+
+/* Cartões de conteúdo em fundo neutro claro, para variar do branco puro */
+section, article {
+  background-color: var(--color-neutral-100);
+  padding: var(--space-5);
+  border-radius: var(--border-radius-base);
+}
+
+/* Links de navegaçao sem sublinhado */
+nav a {
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+}
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Formulario - cada fieldset organiza seus campos em flexbox */
+fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+/* Cada par label + input é um item flexivel */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex: 1 1 220px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-4);
+}
+
+/* Mobile-first: todo item ocupa a largura total até o breakpoint md */
+.grid > * { grid-column: span 12; }
+
+/* Flexbox */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+
+/* (>= 576px) */
+@media (min-width: 576px) {
+  .container { padding-inline: var(--space-5); }
+  .col-sm-6 { grid-column: span 6; }
+}
+
+/* (>= 768px) */
+@media (min-width: 768px) {
+  .container { max-width: 720px; }
+  .grid { gap: var(--space-5); }
+  .col-md-3 { grid-column: span 3; }
+  .col-md-4 { grid-column: span 4; }
+  .col-md-6 { grid-column: span 6; }
+  .col-md-8 { grid-column: span 8; }
+  .col-md-9 { grid-column: span 9; }
+}
+
+/* (>= 992px) */
+@media (min-width: 992px) {
+  .container { max-width: 960px; }
+  .col-lg-3 { grid-column: span 3; }
+  .col-lg-4 { grid-column: span 4; }
+  .col-lg-6 { grid-column: span 6; }
+}
+
+/* (>= 1200px) */
+@media (min-width: 1200px) {
+  .container { max-width: 1140px; }
+  h1 { font-size: calc(var(--font-size-xl) * 1.1); }
+}
+
+/* (>= 1400px) */
+@media (min-width: 1400px) {
+  .container { max-width: 1320px; }
+  .grid { gap: var(--space-6); }
+}
+
+/* ==========================================================
+   CORREÇÃO GLOBAL: evita que padding some à largura
+   ========================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+
+body { margin: 0; }
+
+header {
+  padding: var(--space-4);
+  border-radius: var(--border-radius-base);
+}
+header h1 { margin: 0; }
+
+/* ==========================================================
+   MENU DE NAVEGAÇÃO PRINCIPAL
+   ========================================================== */
+.main-nav {
+  background-color: var(--color-primary-dark);
+  border-radius: var(--border-radius-base);
+  margin-block: var(--space-3);
+  padding: var(--space-2);
+}
+
+.main-nav a,
+.main-nav a:hover { color: var(--color-white); }
+
+.menu,
+.submenu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu a {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--border-radius-base);
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+.menu a:hover,
+.menu a:focus-visible { background-color: var(--color-primary); text-decoration: none; }
+.menu a[aria-current="page"] { background-color: rgb(255 255 255 / 0.18); }
+
+/* Botão hambúrguer (visível por padrão = mobile-first) */
+.menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  background-color: transparent;
+  color: var(--color-white);
+  border: 2px solid var(--color-white);
+  border-radius: var(--border-radius-base);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.menu-toggle:hover { background-color: var(--color-primary); }
+
+/* Ícone hambúrguer desenhado só com CSS (3 barras) */
+.menu-toggle__icon,
+.menu-toggle__icon::before,
+.menu-toggle__icon::after {
+  display: block;
+  width: 22px;
+  height: 3px;
+  background-color: var(--color-white);
+  border-radius: 2px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+.menu-toggle__icon { position: relative; }
+.menu-toggle__icon::before,
+.menu-toggle__icon::after { content: ""; position: absolute; left: 0; }
+.menu-toggle__icon::before { top: -7px; }
+.menu-toggle__icon::after  { top: 7px; }
+
+/* Estado aberto: hambúrguer vira "X" */
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon { background-color: transparent; }
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon::before { transform: translateY(7px) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon::after  { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile: lista fechada, abre com animação ao receber .is-open */
+.menu {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: max-height 0.35s ease, opacity 0.25s ease, visibility 0.35s;
+}
+.menu.is-open {
+  max-height: 600px;
+  opacity: 1;
+  visibility: visible;
+  margin-top: var(--space-2);
+}
+
+.menu > li + li { border-top: 1px solid rgb(255 255 255 / 0.15); }
+
+/* No mobile o submenu aparece recuado, sem dropdown */
+.submenu { padding-left: var(--space-4); }
+.submenu a { font-size: var(--font-size-sm); }
+
+/* (>= 768px)*/
+@media (min-width: 768px) {
+  .menu-toggle { display: none; }
+
+  .menu {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-1);
+    max-height: none;
+    overflow: visible;
+    opacity: 1;
+    visibility: visible;
+    margin-top: 0;
+  }
+  .menu > li + li { border-top: 0; }
+
+  .has-submenu { position: relative; }
+
+  /* Setinha indicando que há submenu */
+  .has-submenu > a::after {
+    content: "";
+    display: inline-block;
+    margin-left: var(--space-2);
+    border: 4px solid transparent;
+    border-top-color: currentColor;
+    border-bottom-width: 0;
+    vertical-align: middle;
+  }
+
+  /* Submenu oculto por padrão */
+  .submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+    min-width: 230px;
+    padding: var(--space-2);
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-base);
+    box-shadow: 0 8px 20px rgb(0 0 0 / 0.25);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+  }
+  .submenu a,
+  .submenu a:hover { color: var(--color-primary-dark); font-size: var(--font-size-base); }
+  .submenu a:hover,
+  .submenu a:focus-visible { background-color: var(--color-primary-light); }
+
+  /* Exibição por mouse e por teclado */
+  .has-submenu:hover > .submenu,
+  .has-submenu:focus-within > .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
+/* Respeita quem prefere menos animação */
+@media (prefers-reduced-motion: reduce) {
+  .menu, .submenu, .menu a, .menu-toggle,
+  .menu-toggle__icon, .menu-toggle__icon::before, .menu-toggle__icon::after { transition: none; }
+}
+
+/* Estilos para o cabeçalho e navegação principal */
+header { text-align: center; }
+
+.main-nav { text-align: center; }
+
+/* Mobile: links centralizados, submenu sem recuo lateral */
+.menu a { text-align: center; }
+.submenu { padding-left: 0; }
+
+@media (min-width: 768px) {
+  /* Itens centralizados; quebram de linha se faltar espaço */
+  .menu {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Dropdown centralizado abaixo do item "Projeto" */
+  .submenu {
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+  }
+  .has-submenu:hover > .submenu,
+  .has-submenu:focus-within > .submenu {
+    transform: translateX(-50%) translateY(0);
+  }
+  .submenu a { text-align: left; }
+}
+
+/* Estado dos botões */
+:root { --color-secondary-darker: #00634a; }
+
+button:not(.menu-toggle),
+.button {
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.2);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+/* Hover */
+button:not(.menu-toggle):hover,
+.button:hover {
+  background-color: var(--color-secondary-dark);
+  box-shadow: 0 6px 12px rgb(0 0 0 / 0.3);
+  transform: translateY(-2px);
+}
+
+/* Foco */
+button:not(.menu-toggle):focus-visible,
+.button:focus-visible {
+  background-color: var(--color-secondary-dark);
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgb(242 169 0 / 0.35);
+}
+
+/* Ativo */
+button:not(.menu-toggle):active,
+.button:active {
+  background-color: var(--color-secondary-darker);
+  transform: translateY(1px);
+  box-shadow: inset 0 3px 6px rgb(0 0 0 / 0.35);
+}
+
+/* Desabilitado */
+button:disabled,
+button:disabled:hover,
+button:disabled:active,
+.button[aria-disabled="true"] {
+  background-color: var(--color-neutral-200);
+  color: var(--color-neutral-700);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Formulários */
+input, select {
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  font: inherit;
+  color: var(--color-neutral-900);
+  background-color: var(--color-white);
+  border: 2px solid var(--color-neutral-400);
+  border-radius: var(--border-radius-base);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+input:hover, select:hover { border-color: var(--color-primary); }
+
+input:focus, select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgb(11 95 255 / 0.2);
+}
+
+input:disabled, select:disabled {
+  background-color: var(--color-neutral-100);
+  color: var(--color-neutral-700);
+  border-color: var(--color-neutral-200);
+  cursor: not-allowed;
+}
+
+/* Asterisco nos campos obrigatorios */
+.field:has(:required) label::after {
+  content: " *";
+  color: var(--color-error);
+  font-weight: var(--font-weight-bold);
+}
+
+.form-note,
+.form-hint {
+  margin: var(--space-3) 0 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-neutral-700);
+}
+
+/* Validação só aparece depois que a pessoa interage com o campo */
+@supports selector(:user-invalid) {
+  /* ERRO */
+  input:user-invalid,
+  select:user-invalid {
+    border-color: var(--color-error);
+    background-color: #fdecea;
+  }
+  input:user-invalid:focus,
+  select:user-invalid:focus { box-shadow: 0 0 0 4px rgb(198 40 40 / 0.25); }
+
+  .field:has(:user-invalid)::after {
+    content: "✕ Preenchimento inválido. Verifique este campo.";
+    color: var(--color-error);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+
+  /* Sucesso */
+  input:user-valid,
+  select:user-valid {
+    border-color: var(--color-secondary-dark);
+    background-color: #e8f6f1;
+  }
+  input:user-valid:focus,
+  select:user-valid:focus { box-shadow: 0 0 0 4px rgb(0 128 91 / 0.25); }
+
+  .field:has(:user-valid)::after {
+    content: "✓ Preenchido corretamente";
+    color: var(--color-secondary-dark);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+}
+
+/* Sem animação para quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  button, .button, input, select { transition: none; }
+  button:not(.menu-toggle):hover, .button:hover { transform: none; }
+}
