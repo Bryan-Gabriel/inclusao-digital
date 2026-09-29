@@ -1,0 +1,234 @@
+/* ==========================================================
+   COMPONENTES DE FEEDBACK: badges, alertas, toasts e modais
+   Depende das variáveis de css/styles.css (carregar styles.css antes).
+
+   Padrão para o time de back-end:
+   - Variantes semânticas: --success | --info | --warning | --error
+     (badge também tem --neutral). Ex.: class="alert alert--success"
+   - Alertas/toasts de erro usam role="alert"; os demais, role="status".
+   ========================================================== */
+
+/* ---------- Tokens semânticos (padrão = info) ---------- */
+.alert, .toast, .badge, .modal {
+  --fb-strong: #0847bf;
+  --fb-bg: #e5efff;
+  --fb-text: #0a3a91;
+  --fb-border: #9dbcff;
+  --fb-icon: "i";
+  --fb-icon-color: #ffffff;
+}
+.alert--success, .toast--success, .badge--success, .modal--success {
+  --fb-strong: #00805b; --fb-bg: #e8f6f1; --fb-text: #004d3a; --fb-border: #9fd8c3; --fb-icon: "✓";
+}
+.alert--warning, .toast--warning, .badge--warning, .modal--warning {
+  --fb-strong: #f2a900; --fb-bg: #fff4d6; --fb-text: #5c4000; --fb-border: #f2c94c; --fb-icon: "!"; --fb-icon-color: #1a1a1a;
+}
+.alert--error, .toast--error, .badge--error, .modal--error {
+  --fb-strong: #c62828; --fb-bg: #fdecea; --fb-text: #7f1d1d; --fb-border: #f0a8a3; --fb-icon: "✕";
+}
+.badge--neutral {
+  --fb-strong: #4d4d4d; --fb-bg: #f5f7fa; --fb-text: #1a1a1a; --fb-border: #c9ced4;
+}
+
+/* ---------- Botões auxiliares ---------- */
+.button-group { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+
+button:not(.menu-toggle).button--secondary {
+  background-color: var(--color-white);
+  color: var(--color-neutral-900);
+  border: 2px solid var(--color-neutral-400);
+  box-shadow: none;
+}
+button:not(.menu-toggle).button--secondary:hover,
+button:not(.menu-toggle).button--secondary:focus-visible {
+  background-color: var(--color-neutral-100);
+  border-color: var(--color-primary);
+}
+button:not(.menu-toggle).button--secondary:active {
+  background-color: var(--color-neutral-200);
+  box-shadow: none;
+}
+
+button:not(.menu-toggle).button--danger { background-color: var(--color-error); }
+button:not(.menu-toggle).button--danger:hover,
+button:not(.menu-toggle).button--danger:focus-visible { background-color: #9b1c1c; }
+button:not(.menu-toggle).button--danger:active { background-color: #7f1d1d; }
+
+/* Botão de ícone (fechar) */
+button:not(.menu-toggle).icon-btn {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  line-height: 1;
+  box-shadow: none;
+  transform: none;
+}
+button:not(.menu-toggle).icon-btn:hover,
+button:not(.menu-toggle).icon-btn:focus-visible {
+  background-color: rgb(0 0 0 / 0.1);
+  box-shadow: none;
+  transform: none;
+}
+button:not(.menu-toggle).icon-btn:active {
+  background-color: rgb(0 0 0 / 0.18);
+  box-shadow: none;
+  transform: none;
+}
+
+/* ---------- Ícone circular compartilhado (alert e toast) ---------- */
+.alert::before,
+.toast::before {
+  content: var(--fb-icon);
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background-color: var(--fb-strong);
+  color: var(--fb-icon-color);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+/* ---------- BADGES ---------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.125rem 0.75rem;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.5;
+  color: var(--fb-text);
+  background-color: var(--fb-bg);
+  border: 1px solid var(--fb-border);
+  border-radius: 999px;
+}
+.badge::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--fb-strong);
+}
+
+/* ---------- ALERTAS ---------- */
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  color: var(--fb-text);
+  background-color: var(--fb-bg);
+  border: 1px solid var(--fb-border);
+  border-left: 6px solid var(--fb-strong);
+  border-radius: var(--border-radius-base);
+}
+.alert__content { flex: 1; }
+.alert__title { margin: 0 0 var(--space-1); font-weight: var(--font-weight-bold); }
+.alert__text { margin: 0; }
+
+/* ---------- TOASTS ---------- */
+.toast-container {
+  position: fixed;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: min(380px, calc(100vw - 2rem));
+  pointer-events: none;
+}
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  color: var(--color-neutral-900);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-neutral-200);
+  border-left: 6px solid var(--fb-strong);
+  border-radius: var(--border-radius-base);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.25);
+  pointer-events: auto;
+  animation: toast-in 0.3s ease;
+}
+.toast.is-leaving { animation: toast-out 0.25s ease forwards; }
+.toast__content { flex: 1; }
+.toast__title { margin: 0; font-weight: var(--font-weight-bold); }
+.toast__message { margin: 0; font-size: var(--font-size-sm); color: var(--color-neutral-700); }
+
+@keyframes toast-in  { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes toast-out { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateX(24px); } }
+
+@media (max-width: 575px) {
+  .toast-container { left: var(--space-3); right: var(--space-3); bottom: var(--space-3); width: auto; }
+}
+
+/* ---------- MODAL (elemento <dialog> nativo) ---------- */
+.modal {
+  width: min(520px, calc(100vw - 2rem));
+  padding: 0;
+  color: var(--color-neutral-900);
+  background-color: var(--color-white);
+  border: 0;
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgb(0 0 0 / 0.4);
+  overflow: hidden;
+}
+.modal[open] { animation: modal-in 0.25s ease; }
+.modal::backdrop {
+  background-color: rgb(26 26 26 / 0.6);
+  backdrop-filter: blur(2px);
+  animation: fade-in 0.25s ease;
+}
+body:has(dialog[open]) { overflow: hidden; }
+
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--fb-bg);
+  color: var(--fb-text);
+  border-top: 6px solid var(--fb-strong);
+}
+.modal__title { margin: 0; font-size: var(--font-size-md); }
+.modal__body { padding: var(--space-4); }
+.modal__body p { margin: 0; }
+.modal__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-neutral-100);
+  border-top: 1px solid var(--color-neutral-200);
+}
+
+@keyframes modal-in { from { opacity: 0; transform: translateY(-16px) scale(0.97); } to { opacity: 1; transform: none; } }
+@keyframes fade-in  { from { opacity: 0; } to { opacity: 1; } }
+
+/* Trecho de código na página de documentação */
+pre {
+  overflow-x: auto;
+  padding: var(--space-3);
+  color: var(--color-neutral-100);
+  background-color: var(--color-neutral-900);
+  border-radius: var(--border-radius-base);
+  font-size: var(--font-size-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast, .toast.is-leaving, .modal[open], .modal::backdrop { animation: none; }
+}

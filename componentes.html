@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Componentes de Feedback - ONG Acesso Digital</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/feedback.css">
+</head>
+<body>
+    <div class="container">
+        <nav aria-label="Navegação secundária">
+            <a href="./index.html">Voltar para a Página Inicial</a>
+        </nav>
+        <header>
+            <h1>Componentes de Feedback</h1>
+        </header>
+        <main>
+            <section aria-labelledby="badges-titulo">
+                <h2 id="badges-titulo">Badges (categorização)</h2>
+                <p>Etiquetas para indicar o status de projetos e ações da ONG.</p>
+                <div class="button-group">
+                    <span class="badge badge--success">Ativo</span>
+                    <span class="badge badge--info">Em andamento</span>
+                    <span class="badge badge--warning">Vagas limitadas</span>
+                    <span class="badge badge--error">Encerrado</span>
+                    <span class="badge badge--neutral">Rascunho</span>
+                </div>
+            </section>
+
+            <section aria-labelledby="alertas-titulo">
+                <h2 id="alertas-titulo">Alertas contextuais</h2>
+                <div class="alert alert--success" role="status">
+                    <div class="alert__content">
+                        <p class="alert__title">Doação registrada</p>
+                        <p class="alert__text">Recebemos sua contribuição. Obrigado por apoiar a ONG!</p>
+                    </div>
+                </div>
+                <br>
+                <div class="alert alert--info" role="status">
+                    <div class="alert__content">
+                        <p class="alert__title">Novas turmas</p>
+                        <p class="alert__text">As inscrições para oficinas de acessibilidade abrem na próxima semana.</p>
+                    </div>
+                </div>
+                <br>
+                <div class="alert alert--warning" role="status">
+                    <div class="alert__content">
+                        <p class="alert__title">Atenção</p>
+                        <p class="alert__text">Restam poucas vagas para o próximo mutirão de voluntários.</p>
+                    </div>
+                </div>
+                <br>
+                <div class="alert alert--error" role="alert">
+                    <div class="alert__content">
+                        <p class="alert__title">Não foi possível enviar</p>
+                        <p class="alert__text">Verifique os campos destacados e tente novamente.</p>
+                    </div>
+                    <button type="button" class="icon-btn" data-alert-close aria-label="Fechar alerta">×</button>
+                </div>
+            </section>
+
+            <section aria-labelledby="toasts-titulo">
+                <h2 id="toasts-titulo">Toasts (notificações não obstrutivas)</h2>
+                <p>Clique para disparar. Somem sozinhos após 5 segundos.</p>
+                <div class="button-group">
+                    <button type="button" data-toast="success" data-toast-title="Tudo certo!" data-toast-message="Seus dados foram salvos com sucesso.">Sucesso</button>
+                    <button type="button" data-toast="info" data-toast-title="Informação" data-toast-message="Uma nova atividade foi publicada.">Informação</button>
+                    <button type="button" data-toast="warning" data-toast-title="Atenção" data-toast-message="Sua sessão expira em 2 minutos.">Aviso</button>
+                    <button type="button" data-toast="error" data-toast-title="Erro" data-toast-message="Não foi possível concluir a ação.">Erro</button>
+                </div>
+            </section>
+
+            <section aria-labelledby="modais-titulo">
+                <h2 id="modais-titulo">Modais</h2>
+                <div class="button-group">
+                    <button type="button" data-modal-open="modal-info">Abrir modal informativo</button>
+                    <button type="button" class="button--danger" data-modal-open="modal-exclusao">Abrir modal de confirmação</button>
+                </div>
+            </section>
+
+        </main>
+        <footer>
+            <p>&copy; 2026 ONG Acesso Digital. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+
+    <dialog id="modal-info" class="modal modal--info" aria-labelledby="modal-info-titulo">
+        <div class="modal__header">
+            <h2 id="modal-info-titulo" class="modal__title">Sobre o mutirão</h2>
+            <button type="button" class="icon-btn" data-modal-close aria-label="Fechar modal">×</button>
+        </div>
+        <div class="modal__body">
+            <p>O próximo mutirão acontece no sábado, às 9h. Traga um documento com foto e vontade de ajudar.</p>
+        </div>
+        <div class="modal__footer">
+            <button type="button" data-modal-close>Entendi</button>
+        </div>
+    </dialog>
+
+    <dialog id="modal-exclusao" class="modal modal--error" aria-labelledby="modal-exclusao-titulo" aria-describedby="modal-exclusao-texto">
+        <div class="modal__header">
+            <h2 id="modal-exclusao-titulo" class="modal__title">Excluir cadastro?</h2>
+            <button type="button" class="icon-btn" data-modal-close aria-label="Fechar modal">×</button>
+        </div>
+        <div class="modal__body">
+            <p id="modal-exclusao-texto">Esta ação não pode ser desfeita. Seus dados de voluntário serão removidos.</p>
+        </div>
+        <div class="modal__footer">
+            <button type="button" class="button--secondary" data-modal-close>Cancelar</button>
+            <button type="button" class="button--danger" data-modal-close>Excluir</button>
+        </div>
+    </dialog>
+
+    <script src="js/feedback.js" defer></script>
+</body>
+</html>
