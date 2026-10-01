@@ -1,0 +1,32 @@
+/* Componentes React: perguntas expansíveis e progresso do cadastro. */
+[hidden] { display: none !important; }
+.questions__item, [data-react-accordion] details { margin-top: var(--space-2); overflow: hidden; border: 1px solid var(--color-neutral-200); border-radius: 10px; background: var(--color-neutral-100); }
+.questions__heading { margin: 0; }
+.questions button.questions__button { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); width: 100%; min-height: 56px; padding: var(--space-3); color: var(--color-neutral-900); background: transparent; border: 0; border-radius: 0; text-align: left; box-shadow: none; transform: none; font: inherit; font-weight: var(--font-weight-medium); }
+.questions button.questions__button:hover, .questions button.questions__button[aria-expanded="true"] { color: var(--color-primary-dark); background: var(--color-primary-light); }
+.questions button.questions__button:focus-visible { outline-offset: -4px; }
+.questions__button > span { font-size: 1.5rem; color: var(--color-primary-dark); }
+.questions__answer { padding: 0 var(--space-3) var(--space-3); }
+.questions__answer p { margin-bottom: 0; }
+[data-react-accordion] summary { padding: var(--space-3); font-weight: var(--font-weight-medium); cursor: pointer; }
+[data-react-accordion] summary:focus-visible { outline: 3px solid var(--color-accent); outline-offset: -4px; }
+[data-react-accordion] details > p { padding-inline: var(--space-3); }
+
+.registration-progress { padding: var(--space-4); border: 1px solid #c7d8f7; border-radius: 12px; background: linear-gradient(120deg, var(--color-primary-light), #f3f7ff); }
+.registration-progress p { margin: 0; }
+.registration-progress__title { display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-2); }
+.registration-progress__title > span { color: var(--color-neutral-700); font-size: var(--font-size-sm); }
+.registration-progress progress { display: block; appearance: none; width: 100%; height: 8px; margin-block: var(--space-3); overflow: hidden; border: 0; border-radius: 999px; background: #d4e1f7; accent-color: var(--color-primary); }
+.registration-progress progress::-webkit-progress-bar { background: #d4e1f7; }
+.registration-progress progress::-webkit-progress-value { background: var(--color-primary); border-radius: 999px; }
+.registration-progress progress::-moz-progress-bar { background: var(--color-primary); border-radius: 999px; }
+.registration-progress__steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); margin: 0; padding: 0; list-style: none; }
+.registration-progress__steps li { display: flex; align-items: center; gap: var(--space-2); color: var(--color-neutral-700); font-size: var(--font-size-sm); }
+.registration-progress__number { display: grid; place-items: center; flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--color-white); color: var(--color-primary-dark); font-weight: var(--font-weight-bold); }
+.registration-progress__steps .is-complete { color: #00634a; }
+.is-complete .registration-progress__number { background: #d6f1e7; color: #00634a; }
+
+
+@media (min-width: 768px) {
+  .registration-progress__steps { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}

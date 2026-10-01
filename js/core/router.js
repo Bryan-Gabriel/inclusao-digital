@@ -1,6 +1,7 @@
 /** Roteador SPA baseado em hash (#/rota/âncora): funciona no GitHub Pages sem configuração de servidor. */
 import { $, $$, render } from './dom.js';
 import { loadTemplate } from './templates.js';
+import { initReactWidgets } from '../ui/react.js';
 
 const ERRO = '<div class="alert alert--error" role="alert"><div class="alert__content"><p class="alert__title">Não foi possível carregar a página</p><p class="alert__text">Verifique sua conexão e tente novamente.</p><button type="button" data-route-retry>Tentar novamente</button></div></div>';
 
@@ -56,6 +57,7 @@ async function renderRoute() {
   const link = $(`#menu-principal > li > a[href="#${path === '/' ? '/' : path}"]`);
   if (link) link.setAttribute('aria-current', 'page');
   page.init?.(app, { signal: controller.signal });
+  initReactWidgets(app, { signal: controller.signal });
 
   if (anchor && document.getElementById(anchor)) {
     document.getElementById(anchor).scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
