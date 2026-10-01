@@ -1,4 +1,21 @@
 /* Feedback: toasts, modais e alertas dispensáveis (módulo ES). */
+const initializedDialogs = new WeakSet();
+
+function trapModalFocus(e) {
+  if (e.key !== 'Tab') return;
+  const dialog = e.currentTarget;
+  const controls = [...dialog.querySelectorAll('button:not(:disabled), a[href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])')]
+    .filter((el) => el.getClientRects().length && getComputedStyle(el).visibility !== 'hidden');
+  if (!controls.length) return;
+  const first = controls[0], last = controls[controls.length - 1];
+  if (e.shiftKey && document.activeElement === first) {
+    e.preventDefault();
+    last.focus();
+  } else if (!e.shiftKey && document.activeElement === last) {
+    e.preventDefault();
+    first.focus();
+  }
+}
 
   function getContainer() {
     var c = document.getElementById('toast-container');
@@ -6,7 +23,8 @@
       c = document.createElement('div');
       c.id = 'toast-container';
       c.className = 'toast-container';
-      c.setAttribute('aria-live', 'polite');
+      c.setAttribute('role', 'region');
+      c.setAttribute('aria-label', 'Notificações');
       document.body.appendChild(c);
     }
     return c;
@@ -44,14 +62,19 @@
     close.className = 'icon-btn';
     close.setAttribute('aria-label', 'Fechar notificação');
     close.textContent = '×';
-    close.addEventListener('click', function () { stop(); dismiss(el); });
+    var returnFocus = document.activeElement;
+    close.addEventListener('click', function () {
+      stop();
+      if (el.contains(document.activeElement) && returnFocus?.isConnected) returnFocus.focus();
+      dismiss(el);
+    });
 
     el.appendChild(content);
     el.appendChild(close);
     getContainer().appendChild(el);
 
-    // Fecha sozinho; pausa enquanto o mouse/foco estiver sobre o toast
-    var duration = opts.duration === undefined ? 5000 : opts.duration;
+    // Sem limite de leitura por padrão; durações explícitas pausam sob mouse/foco.
+    var duration = opts.duration === undefined ? 0 : opts.duration;
     var timer = null;
     var remaining = duration;
     var startedAt = 0;
@@ -81,7 +104,13 @@
 
   function openModal(id) {
     var d = document.getElementById(id);
-    if (d && typeof d.showModal === 'function' && !d.open) d.showModal();
+    if (d && typeof d.showModal === 'function' && !d.open) {
+      if (!initializedDialogs.has(d)) {
+        d.addEventListener('keydown', trapModalFocus);
+        initializedDialogs.add(d);
+      }
+      d.showModal();
+    }
   }
   function closeModal(id) {
     var d = document.getElementById(id);
@@ -106,10 +135,22 @@
     }
 
     var a = e.target.closest('[data-alert-close]');
-    if (a) { var al = a.closest('.alert'); if (al) al.remove(); return; }
+    if (a) {
+      var al = a.closest('.alert');
+      var heading = al?.closest('section')?.querySelector('h2, h3');
+      if (al?.contains(document.activeElement) && heading) {
+        if (!heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
+        heading.focus();
+      }
+      al?.remove();
+      return;
+    }
 
-    // Clique no fundo escurecido fecha o modal
-    if (e.target.tagName === 'DIALOG' && e.target.classList.contains('modal')) e.target.close();
+    // Fecha apenas no fundo externo; o espaço dentro do diálogo continua interativo.
+    if (e.target.tagName === 'DIALOG' && e.target.classList.contains('modal')) {
+      var bounds = e.target.getBoundingClientRect();
+      if (e.clientX < bounds.left || e.clientX > bounds.right || e.clientY < bounds.top || e.clientY > bounds.bottom) e.target.close();
+    }
   });
 
   window.Feedback = { toast, openModal, closeModal }; // compatibilidade com o guia de uso

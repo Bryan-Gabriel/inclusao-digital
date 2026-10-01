@@ -4,14 +4,14 @@
 --color-primary-dark: #0847bf;
 --color-primary-light: #e5efff;
 
---color-secondary: #00a676;
---color-secondary-dark: #00805b;
+--color-secondary: #00805b;
+--color-secondary-dark: #00634a;
 
 --color-accent: #f2a900;
 
 --color-neutral-900: #1a1a1a;
 --color-neutral-700: #4d4d4d;
---color-neutral-400: #9aa0a6;
+--color-neutral-400: #747c84;
 --color-neutral-200: #e1e4e8;
 --color-neutral-100: #f5f7fa;
 --color-white: #ffffff;
@@ -149,7 +149,7 @@ input, select {
 }
 
 /* Respiro entre seções e nav */
-nav[aria-label="Main Navigation"] .container,
+nav[aria-label="Navegação principal"] .container,
 nav[aria-label="Navegação secundária"] .container {
   padding-block: var(--space-3);
 }
@@ -385,17 +385,6 @@ header h1 { margin: 0; }
 
   .has-submenu { position: relative; }
 
-  /* Setinha indicando que há submenu */
-  .has-submenu > a::after {
-    content: "";
-    display: inline-block;
-    margin-left: var(--space-2);
-    border: 4px solid transparent;
-    border-top-color: currentColor;
-    border-bottom-width: 0;
-    vertical-align: middle;
-  }
-
   /* Submenu oculto por padrão */
   .submenu {
     position: absolute;
@@ -417,9 +406,8 @@ header h1 { margin: 0; }
   .submenu a:hover,
   .submenu a:focus-visible { background-color: var(--color-primary-light); }
 
-  /* Exibição por mouse e por teclado */
-  .has-submenu:hover > .submenu,
-  .has-submenu:focus-within > .submenu {
+  /* O botão de divulgação controla o submenu por mouse ou teclado. */
+  .has-submenu > .submenu:not([hidden]) {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
@@ -453,8 +441,7 @@ header { text-align: center; }
     left: 50%;
     transform: translateX(-50%) translateY(-8px);
   }
-  .has-submenu:hover > .submenu,
-  .has-submenu:focus-within > .submenu {
+  .has-submenu > .submenu:not([hidden]) {
     transform: translateX(-50%) translateY(0);
   }
   .submenu a { text-align: left; }

@@ -29,7 +29,7 @@ function RegistrationProgress({ form }) {
   return h('div', { className: 'registration-progress__content' },
     h('div', { className: 'registration-progress__title' },
       h('strong', null, 'Seu cadastro, passo a passo'),
-      h('span', null, `${complete} de ${total} campos concluídos`)
+      h('span', { role: 'status' }, `${complete} de ${total} campos concluídos`)
     ),
     h('progress', { value: complete, max: total, 'aria-label': 'Progresso do cadastro' }),
     h('ol', { className: 'registration-progress__steps' }, groups.map((group, index) => {
