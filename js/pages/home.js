@@ -5,7 +5,7 @@ export async function init(app, { signal }) {
 
   try {
     const { mountParticipacao } = await import('../components/participacao.js');
-    // A pessoa pode ter mudado de rota enquanto a CDN carregava.
+    // A pessoa pode ter mudado de rota enquanto o módulo carregava.
     if (signal.aborted || !container.isConnected) return;
     mountParticipacao(container, { signal });
   } catch (error) {

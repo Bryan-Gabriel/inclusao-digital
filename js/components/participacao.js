@@ -34,7 +34,7 @@ function PainelParticipacao({ acoes }) {
 }
 
 export function mountParticipacao(container, { signal }) {
-  // O HTML é a única fonte dos cartões, inclusive para a versão sem a CDN.
+  // O HTML é a única fonte dos cartões, inclusive se o módulo React falhar.
   const acoes = [...container.querySelectorAll('[data-acao]')].map((cartao) => ({
     id: cartao.dataset.acao,
     categoria: cartao.dataset.categoria,
