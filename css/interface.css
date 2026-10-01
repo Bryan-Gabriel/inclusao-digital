@@ -1,5 +1,84 @@
-/* Componentes React: perguntas expansíveis e progresso do cadastro. */
+/* Acabamento comum às telas e aos novos componentes React. */
 [hidden] { display: none !important; }
+
+body {
+  background: #f3f5f7;
+  min-height: 100vh;
+}
+
+body > .container {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: var(--space-4) clamp(1rem, 2vw, 2rem);
+}
+
+body > .container > header {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-radius: 8px;
+  border-bottom: 4px solid var(--color-accent);
+  text-align: left;
+  background: var(--color-primary-dark);
+}
+
+.site-kicker {
+  margin: 0 0 var(--space-3);
+  color: #dce9ff;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.06em;
+}
+
+#page-title { font-size: clamp(1.8rem, 5vw, 2.75rem); }
+
+.main-nav {
+  margin-block: var(--space-3);
+  padding: var(--space-2);
+  background: var(--color-white);
+  border: 1px solid var(--color-neutral-200);
+  border-radius: 8px;
+}
+
+.main-nav a, .main-nav a:hover { color: var(--color-primary-dark); }
+.menu a:hover, .menu a:focus-visible { background: var(--color-primary-light); }
+.menu a[aria-current="page"] { background: var(--color-primary-dark); color: var(--color-white); }
+.menu-toggle { color: var(--color-primary-dark); border-color: var(--color-primary-dark); }
+.menu-toggle:hover { background: var(--color-primary-light); }
+.menu-toggle__icon, .menu-toggle__icon::before, .menu-toggle__icon::after { background: var(--color-primary-dark); }
+.menu > li + li { border-color: var(--color-neutral-200); }
+
+#app > section, #app > article, #app > .main_container > section {
+  padding: clamp(1.25rem, 3vw, 2rem);
+  margin-bottom: var(--space-4);
+  border: 1px solid var(--color-neutral-200);
+  border-radius: 8px;
+  background-color: var(--color-white);
+}
+
+#app p { overflow-wrap: anywhere; }
+#app h2 { font-size: clamp(1.35rem, 3vw, 1.75rem); }
+#app article > h2, #app > section > h2 { color: #12376b; }
+#app section > p:last-child, #app article > p:last-child { margin-bottom: 0; }
+#app[data-page="projeto"] > article { border-top: 3px solid #c7d8f7; }
+#app[data-page="projeto"] article section { background: var(--color-neutral-100); border: 1px solid var(--color-neutral-200); }
+
+.home-intro { align-items: center; }
+.home-intro .col-md-6 img { width: 100%; max-height: 290px; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 12px; }
+#app > .highlight { background: linear-gradient(120deg, var(--color-primary-light), #f3fbf8); }
+.highlight nav ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-2); padding: 0; list-style: none; }
+.highlight nav a { display: flex; align-items: center; min-height: 44px; padding: var(--space-2) var(--space-3); border-radius: 8px; background: rgb(255 255 255 / 0.8); }
+
+.section-kicker { margin: 0 0 var(--space-2); color: var(--color-primary-dark); font-size: var(--font-size-sm); font-weight: var(--font-weight-bold); }
+.contact-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: var(--space-3); margin: var(--space-4) 0 0; padding: 0; list-style: none; }
+.contact-cards a { display: flex; align-items: center; gap: var(--space-3); height: 100%; min-height: 96px; padding: var(--space-3); border: 1px solid var(--color-neutral-200); border-radius: 12px; background: var(--color-neutral-100); text-decoration: none; }
+.contact-cards a:hover { background: var(--color-primary-light); text-decoration: none; border-color: #c7d8f7; }
+.contact-cards a > span:nth-child(2) { flex: 1; min-width: 0; }
+.contact-cards strong, .contact-cards a > span:nth-child(2) > span { display: block; }
+.contact-cards a > span:nth-child(2) > span { color: var(--color-neutral-700); font-size: var(--font-size-sm); overflow-wrap: anywhere; }
+.contact-cards__icon { display: grid; place-items: center; flex-shrink: 0; width: 42px; height: 42px; border-radius: 12px; background: var(--color-primary-light); color: var(--color-primary-dark); font-weight: var(--font-weight-bold); }
+
 .questions__item, [data-react-accordion] details { margin-top: var(--space-2); overflow: hidden; border: 1px solid var(--color-neutral-200); border-radius: 10px; background: var(--color-neutral-100); }
 .questions__heading { margin: 0; }
 .questions button.questions__button { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); width: 100%; min-height: 56px; padding: var(--space-3); color: var(--color-neutral-900); background: transparent; border: 0; border-radius: 0; text-align: left; box-shadow: none; transform: none; font: inherit; font-weight: var(--font-weight-medium); }
@@ -12,6 +91,10 @@
 [data-react-accordion] summary:focus-visible { outline: 3px solid var(--color-accent); outline-offset: -4px; }
 [data-react-accordion] details > p { padding-inline: var(--space-3); }
 
+#form-voluntario { display: grid; gap: var(--space-4); margin-top: var(--space-4); }
+#form-voluntario fieldset { min-width: 0; margin: 0; padding: var(--space-4); border: 1px solid var(--color-neutral-200); border-radius: 12px; background: var(--color-neutral-100); }
+#form-voluntario legend { padding-inline: var(--space-2); font-weight: var(--font-weight-bold); }
+#form-voluntario > button[type="submit"] { justify-self: start; }
 .registration-progress { padding: var(--space-4); border: 1px solid #c7d8f7; border-radius: 12px; background: linear-gradient(120deg, var(--color-primary-light), #f3f7ff); }
 .registration-progress p { margin: 0; }
 .registration-progress__title { display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-2); }
@@ -26,7 +109,41 @@
 .registration-progress__steps .is-complete { color: #00634a; }
 .is-complete .registration-progress__number { background: #d6f1e7; color: #00634a; }
 
+#app[data-page="componentes"] .button-group { gap: var(--space-3); }
+#app[data-page="nao-encontrado"] > section { text-align: center; padding-block: var(--space-6); }
+body > .container > footer { padding: var(--space-4); margin-top: var(--space-4); border-radius: 8px; background: #10284d; }
+footer p { margin: 0; font-size: var(--font-size-sm); text-align: center; }
+
+@media (max-width: 767px) {
+  .main-nav { text-align: right; }
+}
 
 @media (min-width: 768px) {
+  .menu { justify-content: flex-start; }
   .registration-progress__steps { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  #form-voluntario fieldset { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 992px) {
+  #app[data-page="home"] { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-4); align-items: start; }
+  #app[data-page="home"] > section { margin-bottom: 0; }
+  #app[data-page="home"] > .home-intro, #app[data-page="home"] > .participacao, #app[data-page="home"] > .highlight { grid-column: 1 / -1; }
+  .home-intro > .col-md-6:first-child { grid-column: span 8; }
+  .home-intro > .col-md-6:last-child { grid-column: span 4; }
+
+  #app[data-page="projeto"] { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-4); }
+  #app[data-page="projeto"] > article, #app[data-page="projeto"] > section { grid-column: 1 / -1; margin-bottom: 0; }
+  #app[data-page="projeto"] > article:nth-of-type(-n+3) { grid-column: span 2; }
+  #app[data-page="projeto"] > article:nth-of-type(n+4), #app[data-page="projeto"] > section { grid-column: span 3; }
+
+  #app[data-page="contato"] > .main_container { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: var(--space-4); align-items: start; }
+  #app[data-page="contato"] > .main_container > section { margin-bottom: 0; }
+
+  #app[data-page="cadastro"] { display: grid; grid-template-columns: minmax(0, 3fr) minmax(240px, 1fr); gap: var(--space-4); align-items: start; }
+  #app[data-page="cadastro"] > #lista-voluntarios { margin-bottom: 0; }
+
+  #app[data-page="componentes"] { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-4); align-items: start; }
+  #app[data-page="componentes"] > section { margin-bottom: 0; }
+  #app[data-page="componentes"] > section:first-of-type { grid-column: 1 / -1; }
+  #app[data-page="componentes"] > section:nth-of-type(2) { grid-row: span 2; }
 }
