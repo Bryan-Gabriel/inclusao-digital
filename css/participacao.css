@@ -1,0 +1,95 @@
+/* Estilos restritos ao pequeno painel da página inicial. */
+.participacao {
+  border: 1px solid var(--color-neutral-200);
+  background: linear-gradient(135deg, var(--color-white), var(--color-primary-light));
+}
+
+.participacao .participacao__chamada {
+  margin: 0 0 var(--space-2);
+  color: var(--color-primary-dark);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.participacao .participacao__filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.participacao .participacao__filtro {
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-primary-dark);
+  border-radius: 999px;
+  background: var(--color-white);
+  color: var(--color-primary-dark);
+  box-shadow: none;
+}
+
+.participacao .participacao__filtro:hover,
+.participacao .participacao__filtro:focus-visible,
+.participacao .participacao__filtro:active {
+  background: var(--color-primary-light);
+  box-shadow: none;
+  transform: none;
+}
+
+.participacao .participacao__filtro[aria-pressed="true"] {
+  background: var(--color-primary-dark);
+  color: var(--color-white);
+}
+
+.participacao .participacao__resultado {
+  margin-block: var(--space-3);
+  color: var(--color-neutral-700);
+  font-size: var(--font-size-sm);
+}
+
+.participacao .participacao__lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: var(--space-3);
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.participacao .participacao__cartao {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-neutral-200);
+  border-top: 4px solid var(--color-primary);
+  border-radius: var(--border-radius-base);
+  background: var(--color-white);
+  box-shadow: 0 4px 12px rgb(11 95 255 / 0.06);
+}
+
+.participacao .participacao__categoria {
+  padding: var(--space-1) var(--space-2);
+  border-radius: 999px;
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.participacao .participacao__cartao h3,
+.participacao .participacao__cartao p { margin: 0; }
+
+.participacao .participacao__cartao p { color: var(--color-neutral-700); }
+
+.participacao .participacao__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  margin-top: auto;
+  color: var(--color-primary-dark);
+  font-weight: var(--font-weight-medium);
+  text-underline-offset: 3px;
+}
