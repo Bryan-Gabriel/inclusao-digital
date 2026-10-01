@@ -32,7 +32,30 @@ O site simula a página institucional de uma ONG fictícia chamada Acesso Digita
 
 ### Botões com estados interativos
 
-Estados visuais distintos para `:hover` (fundo mais escuro, sombra e elevação), `:focus-visible` (contorno amarelo espesso e halo), `:active` (afundamento com sombra interna) e `:disabled` (aparência apagada e cursor bloqueado), com transições suaves.
+Estados visuais distintos para `:hover` (fundo mais escuro, sombra e elevação), `:focus-visible` (contorno e halo em duas cores), `:active` (afundamento com sombra interna) e `:disabled` (aparência apagada e cursor bloqueado), com transições suaves. No alto contraste, o foco recebe contorno amarelo e as mudanças de cor são imediatas.
+
+### Alto contraste
+
+- O botão **Alto contraste**, no cabeçalho de todas as telas, alterna entre a paleta institucional e superfícies pretas com texto branco, links amarelos e bordas visíveis.
+- Enter ou Espaço ativam o botão nativo; `aria-pressed` informa o estado aos leitores de tela, acompanhado de um indicador visível de ativação.
+- `js/ui/contraste.js` aplica `data-contrast` à raiz da página. `css/contraste.css`, carregado após os demais estilos, adapta também formulários, filtros React, perguntas, progresso, alertas, notificações e modais.
+- Sem escolha manual salva, acompanha `prefers-contrast: more` e suas mudanças. A escolha manual prevalece e fica em `ongad:contrast` no `localStorage`; se o armazenamento estiver bloqueado, a alternância continua funcionando na sessão.
+- `forced-colors: active` respeita as cores do sistema, mantém foco e limites dos diálogos e adapta a barra de progresso. Mensagens de validação conservam texto e ícones além das cores.
+- Para experimentar: execute o site por um servidor HTTP, ative o botão, navegue pelas páginas e recarregue. Acione novamente para restaurar a paleta padrão; remover `ongad:contrast` do armazenamento devolve a seleção automática ao sistema.
+
+Rácios de texto medidos pelas cores computadas no Chrome, com a fórmula de luminância relativa WCAG, e inspeção `color-contrast` do axe-core:
+
+| Elemento | Texto / fundo | Rácio |
+|---|---|---|
+| Cabeçalho padrão | `#ffffff` / `#0847bf` | 7,88:1 |
+| Botão de sucesso padrão | `#ffffff` / `#00805b` | 4,95:1 |
+| Texto, notificações e modais em alto contraste | `#ffffff` / `#000000` | 21:1 |
+| Links em alto contraste | `#ffeb3b` / `#000000` | 17,20:1 |
+| Filtro selecionado em alto contraste | `#000000` / `#ffeb3b` | 17,20:1 |
+| Mensagem de erro em alto contraste | `#ffb4b4` / `#000000` | 12,44:1 |
+| Mensagem de sucesso em alto contraste | `#a5f3b8` / `#000000` | 16,11:1 |
+
+Os valores exibidos estão arredondados; o limite de 4,5:1 é comparado antes do arredondamento. As inspeções automáticas foram complementadas por verificações de teclado, persistência, preferências do sistema e layout a 320px. Isso não representa certificação integral WCAG nem teste com leitor de tela real. Referência: [WCAG 2.1, contraste mínimo](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html).
 
 ### Formulário com validação visual
 
@@ -71,12 +94,13 @@ Componentes próprios com a paleta do projeto, documentados e demonstrados em `#
 │   ├── feedback.css    # Badges, alertas, toasts e modais
 │   ├── spa.css         # Acessibilidade das rotas e validação
 │   ├── participacao.css # Aparência do painel de cartões
-│   └── interface.css   # Aparência das telas, perguntas e progresso
+│   ├── interface.css   # Aparência das telas, perguntas e progresso
+│   └── contraste.css   # Controle e paleta de alto contraste
 ├── js/
 │   ├── main.js         # Inicializa menu e roteador em JavaScript puro
 │   ├── routes.js       # Define páginas e controladores sob demanda
 │   ├── core/           # Roteador, templates, DOM, armazenamento e validação
-│   ├── ui/             # Menu e feedback em JavaScript puro
+│   ├── ui/             # Menu, contraste e feedback em JavaScript puro
 │   ├── pages/
 │   │   ├── home.js      # Carrega o componente React com tratamento de falhas
 │   │   └── cadastro.js  # Controlador do formulário
