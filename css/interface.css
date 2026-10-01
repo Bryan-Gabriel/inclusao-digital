@@ -47,7 +47,27 @@ body > .container > header {
 .menu-toggle { color: var(--color-primary-dark); border-color: var(--color-primary-dark); }
 .menu-toggle:hover { background: var(--color-primary-light); }
 .menu-toggle__icon, .menu-toggle__icon::before, .menu-toggle__icon::after { background: var(--color-primary-dark); }
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon { background: transparent; }
 .menu > li + li { border-color: var(--color-neutral-200); }
+
+.has-submenu { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; }
+.has-submenu > .submenu { grid-column: 1 / -1; }
+.main-nav button.submenu-toggle { min-width: 44px; min-height: 44px; padding: var(--space-2); color: var(--color-primary-dark); background: transparent; border: 1px solid var(--color-primary-dark); border-radius: var(--border-radius-base); box-shadow: none; transform: none; }
+.main-nav button.submenu-toggle:hover, .main-nav button.submenu-toggle:focus-visible { color: var(--color-primary-dark); background: var(--color-primary-light); box-shadow: none; transform: none; }
+.submenu-toggle > [aria-hidden] { display: block; font-size: 1.25rem; line-height: 1; }
+.submenu-toggle[aria-expanded="true"] > [aria-hidden] { transform: rotate(180deg); }
+
+/* Duas cores mantêm o foco visível tanto em fundos claros como escuros. */
+body :is(a, button, input, select, summary):not(:disabled):focus-visible {
+  outline: 3px solid var(--color-neutral-900);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px var(--color-white);
+}
+
+@media (forced-colors: active) {
+  body :is(a, button, input, select, summary):not(:disabled):focus-visible { outline-color: Highlight; box-shadow: none; }
+  .menu-toggle__icon, .menu-toggle__icon::before, .menu-toggle__icon::after { background: ButtonText; }
+}
 
 #app > section, #app > article, #app > .main_container > section {
   padding: clamp(1.25rem, 3vw, 2rem);
@@ -94,7 +114,7 @@ body > .container > header {
 #form-voluntario { display: grid; gap: var(--space-4); margin-top: var(--space-4); }
 #form-voluntario fieldset { min-width: 0; margin: 0; padding: var(--space-4); border: 1px solid var(--color-neutral-200); border-radius: 12px; background: var(--color-neutral-100); }
 #form-voluntario legend { padding-inline: var(--space-2); font-weight: var(--font-weight-bold); }
-#form-voluntario > button[type="submit"] { justify-self: start; }
+#form-voluntario > button[type="submit"] { justify-self: start; transition: transform 0.1s ease, box-shadow 0.2s ease; }
 .registration-progress { padding: var(--space-4); border: 1px solid #c7d8f7; border-radius: 12px; background: linear-gradient(120deg, var(--color-primary-light), #f3f7ff); }
 .registration-progress p { margin: 0; }
 .registration-progress__title { display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-2); }
@@ -113,6 +133,10 @@ body > .container > header {
 #app[data-page="nao-encontrado"] > section { text-align: center; padding-block: var(--space-6); }
 body > .container > footer { padding: var(--space-4); margin-top: var(--space-4); border-radius: 8px; background: #10284d; }
 footer p { margin: 0; font-size: var(--font-size-sm); text-align: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  body button:not(.menu-toggle), body .button, body input, body select { transition: none; }
+}
 
 @media (max-width: 767px) {
   .main-nav { text-align: right; }

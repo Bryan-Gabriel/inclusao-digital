@@ -27,7 +27,7 @@ O site simula a página institucional de uma ONG fictícia chamada Acesso Digita
 - Menu horizontal com **dropdown** (submenu de "Projeto") em telas a partir de 768px.
 - Menu **hambúrguer** em telas menores, com ícone desenhado apenas com CSS que se transforma em "X" ao abrir.
 - Abordagem mobile-first: o CSS base descreve o menu condensado e a media query `@media (min-width: 768px)` o expande.
-- Submenu oculto por padrão (`opacity`, `visibility` e `transform`) e revelado por `:hover` e `:focus-within`, garantindo acesso também por teclado.
+- Submenu controlado por um botão nativo, com `aria-expanded`, `aria-controls` e `hidden`; Enter ou Espaço alternam sua abertura e `Esc` devolve o foco ao botão.
 - `aria-expanded` e `aria-controls` no botão, tecla `Esc` fecha o menu e `aria-current` destaca a página atual.
 
 ### Botões com estados interativos
@@ -51,7 +51,7 @@ Componentes próprios com a paleta do projeto, documentados e demonstrados em `#
 |---|---|---|
 | Badge | Etiqueta para categorizar status | `success`, `info`, `warning`, `error`, `neutral` |
 | Alerta | Caixa de mensagem contextual, com botão de fechar opcional | `success`, `info`, `warning`, `error` |
-| Toast | Notificação não obstrutiva, some em 5s e pausa ao passar o mouse ou focar | `success`, `info`, `warning`, `error` |
+| Toast | Permanece até ser fechado; durações explícitas pausam ao passar o mouse ou focar | `success`, `info`, `warning`, `error` |
 | Modal | Janela de diálogo baseada no elemento nativo `<dialog>` | `success`, `info`, `warning`, `error` |
 
 ## Estrutura do projeto
@@ -126,8 +126,8 @@ Definidos como variáveis CSS em `:root` (`css/styles.css`).
 |---|---|---|
 | `--color-primary` | `#0b5fff` | Cabeçalho, links, foco de campos |
 | `--color-primary-dark` | `#0847bf` | Menu, hover de links |
-| `--color-secondary` | `#00a676` | Botões e sucesso |
-| `--color-secondary-dark` | `#00805b` | Hover de botões e campo válido |
+| `--color-secondary` | `#00805b` | Botões e sucesso |
+| `--color-secondary-dark` | `#00634a` | Hover de botões e campo válido |
 | `--color-accent` | `#f2a900` | Contorno de foco e avisos |
 | `--color-error` | `#c62828` | Erros e campos inválidos |
 
@@ -153,10 +153,10 @@ Formulários acessíveis (`#/cadastro`):
 - Validação visual com cor, ícone e texto, sem depender apenas da cor.
 
 Interação e movimento:
-- Estados de foco visíveis (`:focus-visible`) em links, botões e campos.
-- Menu e submenu acessíveis por teclado (`:focus-within`, `Esc`).
+- Estados de foco visíveis (`:focus-visible`) com contorno em duas cores e adaptação ao modo de cores forçadas.
+- Menu e submenu acessíveis por teclado, com botões nativos e fechamento por `Esc`.
 - Modais nativos com foco preso, fechamento por `Esc` e retorno do foco ao elemento de origem.
-- Toasts com pausa ao passar o mouse ou focar.
+- Toasts sem limite de leitura por padrão; durações explícitas pausam ao passar o mouse ou focar.
 - `prefers-reduced-motion` desativa transições e animações.
 - Alvos de toque com no mínimo 44px de altura.
 
@@ -165,6 +165,8 @@ Texto alternativo em imagens: atributo alt descritivo na imagem da página inici
 Links descritivos: textos informativos em vez de "clique aqui", com rel="noopener noreferrer" em links externos que abrem em nova aba.
 
 Navegação consistente: o menu principal está disponível em todas as páginas, com acesso ao Início.
+
+O conteúdo principal recebe um nome pelo título da página. O link "Pular para o conteúdo" move o foco sem alterar a rota, e links para seções também posicionam o foco no destino. Formulários têm nome acessível; diálogos associam título e descrição e priorizam uma ação segura no foco inicial.
 
 ## Autor
 

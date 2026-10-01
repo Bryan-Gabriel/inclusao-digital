@@ -44,7 +44,7 @@
 
             <section aria-labelledby="toasts-titulo">
                 <h2 id="toasts-titulo">Toasts (notificações não obstrutivas)</h2>
-                <p>Clique para disparar. Somem sozinhos após 5 segundos.</p>
+                <p>Ative um botão para mostrar uma notificação. Ela permanece disponível até você fechá-la.</p>
                 <div class="button-group">
                     <button type="button" data-toast="success" data-toast-title="Tudo certo!" data-toast-message="Seus dados foram salvos com sucesso.">Sucesso</button>
                     <button type="button" class="button--info" data-toast="info" data-toast-title="Informação" data-toast-message="Uma nova atividade foi publicada.">Informação</button>
@@ -62,16 +62,16 @@
             </section>
 
 
-<dialog id="modal-info" class="modal modal--info" aria-labelledby="modal-info-titulo">
+<dialog id="modal-info" class="modal modal--info" aria-labelledby="modal-info-titulo" aria-describedby="modal-info-texto">
         <div class="modal__header">
             <h2 id="modal-info-titulo" class="modal__title">Sobre o mutirão</h2>
             <button type="button" class="icon-btn" data-modal-close aria-label="Fechar modal">×</button>
         </div>
         <div class="modal__body">
-            <p>O próximo mutirão acontece no sábado, às 9h. Traga um documento com foto e vontade de ajudar.</p>
+            <p id="modal-info-texto">O próximo mutirão acontece no sábado, às 9h. Traga um documento com foto e vontade de ajudar.</p>
         </div>
         <div class="modal__footer">
-            <button type="button" data-modal-close>Entendi</button>
+            <button type="button" data-modal-close autofocus>Entendi</button>
         </div>
     </dialog>
 <dialog id="modal-exclusao" class="modal modal--error" aria-labelledby="modal-exclusao-titulo" aria-describedby="modal-exclusao-texto">
@@ -83,7 +83,7 @@
             <p id="modal-exclusao-texto">Esta ação não pode ser desfeita. Seus dados de voluntário serão removidos.</p>
         </div>
         <div class="modal__footer">
-            <button type="button" class="button--secondary" data-modal-close>Cancelar</button>
+            <button type="button" class="button--secondary" data-modal-close autofocus>Cancelar</button>
             <button type="button" class="button--danger" data-modal-close>Excluir</button>
         </div>
     </dialog>
