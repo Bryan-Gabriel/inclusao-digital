@@ -102,6 +102,7 @@ export function init(root, { signal }) {
     }
     storage.remove(KEY_DRAFT);
     form.reset(); clearStates(); refresh(); renderList();
+    field('name').focus(); // o botão de envio fica desabilitado após limpar o formulário
     toast({ type: 'success', title: 'Cadastro enviado!', message: 'Obrigado por se voluntariar. Entraremos em contato em breve.' });
   });
 
@@ -113,6 +114,8 @@ export function init(root, { signal }) {
       return;
     }
     renderList();
+    const next = $('[data-remove]', root) ?? $('#lista-titulo', root);
+    next.focus();
     toast({ type: 'info', title: 'Removido', message: 'O voluntário foi removido da lista.' });
   });
 

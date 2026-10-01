@@ -1,9 +1,9 @@
             <div class="main_container">
-                <section>
-                    <h2>Faça parte da ONG Acesso Digital</h2>
+                <section aria-labelledby="cadastro-titulo">
+                    <h2 id="cadastro-titulo">Faça parte da ONG Acesso Digital</h2>
                     <p>Preencha o formulário abaixo para se cadastrar como voluntário e ajudar a promover a acessibilidade digital.</p>
                     <p class="form-note">Campos marcados com * são obrigatórios.</p>
-                    <form id="form-voluntario" novalidate>
+                    <form id="form-voluntario" aria-labelledby="cadastro-titulo" novalidate>
                         <div id="cadastro-progresso-react" class="registration-progress">
                             <p>Seu cadastro em quatro etapas: dados pessoais, endereço, contato e disponibilidade.</p>
                         </div>
@@ -103,7 +103,7 @@
             </div>
 
 <section id="lista-voluntarios" aria-labelledby="lista-titulo">
-    <h2 id="lista-titulo">Voluntários cadastrados neste navegador</h2>
+    <h2 id="lista-titulo" tabindex="-1">Voluntários cadastrados neste navegador</h2>
     <p class="form-note">Os dados ficam salvos apenas neste navegador (localStorage). Use apenas dados fictícios.</p>
     <ul class="volunteer-list" id="volunteer-list"></ul>
 </section>
@@ -116,7 +116,7 @@
             <p id="modal-confirmacao-texto">Confira seus dados antes de enviar. Ao confirmar, sua inscrição como voluntário será registrada.</p>
         </div>
         <div class="modal__footer">
-            <button type="button" class="button--secondary" data-modal-close>Revisar dados</button>
+            <button type="button" class="button--secondary" data-modal-close autofocus>Revisar dados</button>
             <button type="button" id="confirmar-envio">Confirmar envio</button>
         </div>
     </dialog>
