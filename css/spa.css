@@ -1,0 +1,26 @@
+/* Camada SPA: acessibilidade de rotas, validação por JS e lista de voluntários */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip-link { position: absolute; left: var(--space-3); top: -100px; z-index: 2000; padding: var(--space-2) var(--space-3); background: var(--color-white); border-radius: var(--border-radius-base); }
+.skip-link:focus { top: var(--space-3); }
+#page-title:focus, #app:focus { outline: none; }
+
+/* Transição suave entre rotas */
+#app > * { animation: route-in 0.3s ease; }
+@keyframes route-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* Validação por JavaScript (aria-invalid) substitui a mensagem genérica do CSS */
+form[novalidate] .field::after { content: none; }
+.field input[aria-invalid="true"], .field select[aria-invalid="true"] { border-color: var(--color-error); background-color: #fdecea; }
+.field input[aria-invalid="false"], .field select[aria-invalid="false"] { border-color: var(--color-secondary-dark); background-color: #e8f6f1; }
+.field-msg { min-height: 1.25rem; font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); }
+.field-msg.is-error { color: var(--color-error); }
+.field-msg.is-error::before { content: "✕ "; }
+.field-msg.is-ok { color: var(--color-secondary-dark); }
+.field-msg.is-ok::before { content: "✓ "; }
+
+/* Lista de voluntários */
+.volunteer-list { list-style: none; margin: var(--space-3) 0 0; padding: 0; display: grid; gap: var(--space-2); }
+.volunteer-item, .volunteer-empty { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); padding: var(--space-2) var(--space-3); background: var(--color-white); border: 1px solid var(--color-neutral-200); border-radius: var(--border-radius-base); }
+.volunteer-empty { color: var(--color-neutral-700); }
+
+@media (prefers-reduced-motion: reduce) { #app > * { animation: none; } }
