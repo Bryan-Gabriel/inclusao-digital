@@ -1,0 +1,154 @@
+/* Controle disponível em todas as rotas, fora do conteúdo substituído pela SPA. */
+.header-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+.header-tools .site-kicker { margin: 0; }
+header button.contrast-toggle {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  background: transparent;
+  color: var(--color-white);
+  border: 1px solid var(--color-white);
+  box-shadow: none;
+  transform: none;
+  transition: none;
+}
+header button.contrast-toggle:hover {
+  background: var(--color-white);
+  color: var(--color-primary-dark);
+}
+.contrast-toggle__state { font-size: var(--font-size-sm); font-weight: var(--font-weight-regular); }
+
+/* Paleta isolada: superfícies pretas, texto branco e ações amarelas. */
+:root[data-contrast="high"] {
+  color-scheme: dark;
+  --contrast-bg: #000000;
+  --contrast-text: #ffffff;
+  --contrast-action: #ffeb3b;
+  --contrast-error: #ffb4b4;
+  --contrast-success: #a5f3b8;
+}
+:root[data-contrast="high"] :is(body, header, footer, .main-nav, #app section, #app article,
+    .submenu, fieldset, .participacao__cartao, .participacao__categoria, .questions__item,
+    details, .registration-progress, .registration-progress__number, .volunteer-item,
+    .volunteer-empty, .contact-cards a, .contact-cards__icon, .highlight nav a,
+    .modal, .modal__header, .modal__footer, .toast, .alert, .badge, pre, .skip-link) {
+  background: var(--contrast-bg);
+  color: var(--contrast-text);
+  border-color: var(--contrast-text);
+  box-shadow: none;
+}
+:root[data-contrast="high"] :is(#page-title, #app h2, #app h3, .site-kicker, legend,
+    .participacao__chamada, .participacao__resultado, .participacao__cartao p,
+    .section-kicker, .contact-cards a > span:nth-child(2) > span,
+    .registration-progress__title > span, .registration-progress__steps li,
+    .toast__message, .form-note, .form-hint) { color: var(--contrast-text); }
+:root[data-contrast="high"] :is(a, .main-nav a, .participacao__link) {
+  color: var(--contrast-action);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+:root[data-contrast="high"] #app a:not(.button) { color: var(--contrast-action); }
+:root[data-contrast="high"] :is(button, .button, .main-nav button.submenu-toggle,
+    .questions button.questions__button, .participacao .participacao__filtro) {
+  background: var(--contrast-bg);
+  color: var(--contrast-text);
+  border: 1px solid var(--contrast-text);
+  box-shadow: none;
+  transition: none;
+}
+:root[data-contrast="high"] body :is(button:not(:disabled):hover, button:not(:disabled):focus-visible,
+    .button:hover, .button:focus-visible, .menu a:hover, .menu a:focus-visible,
+    .menu a[aria-current="page"], .participacao__filtro[aria-pressed="true"],
+    .questions__button[aria-expanded="true"], .contrast-toggle[aria-pressed="true"]) {
+  background: var(--contrast-action);
+  color: var(--contrast-bg);
+}
+:root[data-contrast="high"] .questions__button > span { color: inherit; }
+:root[data-contrast="high"] button:disabled {
+  background: #262626;
+  color: #bfbfbf;
+  border-color: #bfbfbf;
+}
+:root[data-contrast="high"] :is(input, select, .field input[aria-invalid], .field select[aria-invalid]) {
+  background: var(--contrast-bg);
+  color: var(--contrast-text);
+  border: 2px solid var(--contrast-text);
+}
+:root[data-contrast="high"] input::placeholder { color: #d9d9d9; opacity: 1; }
+:root[data-contrast="high"] .field-msg.is-error,
+:root[data-contrast="high"] .field:has(:required) label::after { color: var(--contrast-error); }
+:root[data-contrast="high"] :is(.field input[aria-invalid="true"], .field select[aria-invalid="true"]) { border-color: var(--contrast-error); }
+:root[data-contrast="high"] .field-msg.is-ok { color: var(--contrast-success); }
+:root[data-contrast="high"] :is(.field input[aria-invalid="false"], .field select[aria-invalid="false"]) { border-color: var(--contrast-success); }
+:root[data-contrast="high"] :is(.alert, .toast, .badge, .modal) {
+  --fb-bg: var(--contrast-bg);
+  --fb-text: var(--contrast-text);
+  --fb-border: var(--contrast-text);
+  --fb-strong: var(--contrast-action);
+  --fb-icon-color: var(--contrast-bg);
+}
+:root[data-contrast="high"] .badge--filled { background: var(--contrast-action); color: var(--contrast-bg); }
+:root[data-contrast="high"] .badge--filled::before { background: var(--contrast-bg); }
+:root[data-contrast="high"] .registration-progress progress {
+  background: var(--contrast-bg);
+  border: 1px solid var(--contrast-text);
+  accent-color: var(--contrast-action);
+}
+:root[data-contrast="high"] .registration-progress progress::-webkit-progress-bar { background: var(--contrast-bg); }
+:root[data-contrast="high"] .registration-progress progress::-webkit-progress-value { background: var(--contrast-action); }
+:root[data-contrast="high"] .registration-progress progress::-moz-progress-bar { background: var(--contrast-action); }
+:root[data-contrast="high"] .menu-toggle__icon,
+:root[data-contrast="high"] .menu-toggle__icon::before,
+:root[data-contrast="high"] .menu-toggle__icon::after { background: currentColor; }
+:root[data-contrast="high"] .menu-toggle[aria-expanded="true"] .menu-toggle__icon { background: transparent; }
+:root[data-contrast="high"] body :is(a, button, input, select, summary):not(:disabled):focus-visible {
+  outline: 3px solid var(--contrast-action);
+  box-shadow: 0 0 0 3px var(--contrast-bg);
+}
+:root[data-contrast="high"] .modal { border: 2px solid var(--contrast-text); }
+:root[data-contrast="high"] .modal::backdrop { background: rgb(0 0 0 / 0.8); }
+
+/* O modo de contraste do Windows mantém a paleta escolhida pelo usuário. */
+@media (forced-colors: active) {
+  :root { color-scheme: light dark; }
+  :root[data-contrast="high"] {
+    --contrast-bg: Canvas;
+    --contrast-text: CanvasText;
+    --contrast-action: LinkText;
+    --contrast-error: CanvasText;
+    --contrast-success: CanvasText;
+  }
+  :root[data-contrast] body :is(a, button, input, select, summary):not(:disabled):focus-visible {
+    outline-color: Highlight;
+    box-shadow: none;
+  }
+  :root[data-contrast] .modal { border: 2px solid CanvasText; }
+  :root[data-contrast] body button { border: 1px solid ButtonText; }
+  :root[data-contrast] body :is(button:not(:disabled):hover, button:not(:disabled):focus-visible,
+      .button:hover, .button:focus-visible, .menu a:hover, .menu a:focus-visible) {
+    background: ButtonFace;
+    color: ButtonText;
+  }
+  :root[data-contrast] body :is(.menu a[aria-current="page"], .participacao__filtro[aria-pressed="true"],
+      .questions__button[aria-expanded="true"], .contrast-toggle[aria-pressed="true"]) {
+    background: Highlight;
+    color: HighlightText;
+  }
+  :root[data-contrast] .menu-toggle__icon,
+  :root[data-contrast] .menu-toggle__icon::before,
+  :root[data-contrast] .menu-toggle__icon::after { background: ButtonText; }
+  :root .registration-progress progress { border: 1px solid CanvasText; }
+  :root .registration-progress progress::-webkit-progress-bar { background: Canvas; }
+  :root .registration-progress progress::-webkit-progress-value { background: Highlight; }
+  :root .registration-progress progress::-moz-progress-bar { background: Highlight; }
+}
