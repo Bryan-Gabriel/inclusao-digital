@@ -4,71 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ONG Acesso Digital</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="js/menu.js" defer></script>
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/feedback.css">
+    <link rel="stylesheet" href="./css/spa.css">
+    <script type="module" src="./js/main.js"></script>
 </head>
 <body>
+    <a class="skip-link" href="#app">Pular para o conteúdo</a>
     <div class="container">
-            <header>
-            <h1>ONG Acesso Digital</h1>
+        <header>
+            <h1 id="page-title" tabindex="-1">ONG Acesso Digital</h1>
         </header>
         <nav class="main-nav" aria-label="Main Navigation">
-            <button class="menu-toggle" type="button"
-                    aria-expanded="false" aria-controls="menu-principal"
-                    aria-label="Abrir menu de navegação">
+            <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-principal">
                 <span class="menu-toggle__icon" aria-hidden="true"></span>
                 <span class="menu-toggle__label">Menu</span>
             </button>
-
             <ul id="menu-principal" class="menu">
-                <li><a href="./index.html">Início</a></li>
+                <li><a href="#/">Início</a></li>
                 <li class="has-submenu">
-                    <a href="./projeto.html">Projeto</a>
+                    <a href="#/projeto">Projeto</a>
                     <ul class="submenu">
-                        <li><a href="./projeto.html#informacoes">Sobre a ONG</a></li>
-                        <li><a href="./projeto.html#objetivos">Nossos Objetivos</a></li>
-                        <li><a href="./projeto.html#detalhes">Como Atuamos</a></li>
-                        <li><a href="./projeto.html#recursos">Recursos e Parcerias</a></li>
+                        <li><a href="#/projeto/informacoes">Sobre a ONG</a></li>
+                        <li><a href="#/projeto/objetivos">Nossos Objetivos</a></li>
+                        <li><a href="#/projeto/detalhes">Como Atuamos</a></li>
+                        <li><a href="#/projeto/recursos">Recursos e Parcerias</a></li>
                     </ul>
                 </li>
-                <li><a href="./cadastro.html">Cadastro</a></li>
-                <li><a href="./contact.html">Contato</a></li>
+                <li><a href="#/cadastro">Cadastro</a></li>
+                <li><a href="#/contato">Contato</a></li>
+                <li><a href="#/componentes">Componentes</a></li>
             </ul>
         </nav>
-        <main>
-            <section class="grid" aria-labelledby="quem-somos-titulo">
-                <div class="col-md-6">
-                    <h2 id="quem-somos-titulo">Quem Somos</h2>
-                    <p>A ONG Acesso Digital atua para tornar a internet um espaço mais inclusivo, promovendo boas práticas de acessibilidade digital e o uso correto do HTML5 semântico no desenvolvimento de sites e aplicações.</p>
-                </div>
-                <div class="col-md-6">
-                    <img src="assets/images.jpg" 
-                    alt="Imagem representando a ONG, reunidos revisando o conteúdo do site em HTML5 ao redor de um notebook"
-                    width="600" height="400">
-                </div>
-            </section>
-            <section aria-labelledby="contato-rapido-titulo">
-                <h2 id="contato-rapido-titulo">Fale Conosco</h2>
-                <p>Entre em contato diretamente pelos canais abaixo ou visite nossa 
-                <a href="./contact.html">página de contato completa</a>.</p>
-                <ul>
-                    <li>Email: <a href="mailto:bryan@gabriel.org.br">bryan@gabriel.org.br</a></li>
-                    <li>Telefone: <a href="tel:+5543999999999">(43) 99999-9999</a></li>
-                </ul>
-            </section>
-            <section class="highlight">
-                <h3>Nossa Missão</h3>
-                <p>Trabalhamos para conscientizar desenvolvedores, empresas e instituições sobre a importância da acessibilidade na web, garantindo que pessoas com deficiência visual, auditiva, motora ou cognitiva tenham acesso pleno ao conteúdo digital.</p>
-                <nav>
-                    <ul>
-                    <li><a href="./projeto.html#informacoes">Item 1: Sobre a ONG</a></li>
-                    <li><a href="./projeto.html#objetivos">Item 2: Nossos Objetivos</a></li>
-                    <li><a href="./projeto.html#detalhes">Item 3: Como Atuamos</a></li>
-                    <li><a href="./projeto.html#recursos">Item 4: Recursos e Parcerias</a></li>
-                </ul>
-                </nav>
-            </section>
+        <main id="app" tabindex="-1">
+            <noscript>
+                <p>Este site precisa de JavaScript ativado para carregar o conteúdo.</p>
+            </noscript>
         </main>
+        <div id="route-announcer" class="sr-only" aria-live="polite"></div>
         <footer>
             <p>&copy; 2026 ONG Acesso Digital. Todos os direitos reservados.</p>
         </footer>
