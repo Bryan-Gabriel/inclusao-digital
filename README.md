@@ -10,14 +10,60 @@ https://bryan-gabriel.github.io/inclusao-digital/
 
 O site simula a página institucional de uma ONG fictícia chamada Acesso Digital, cuja missão é conscientizar desenvolvedores, empresas e instituições sobre a importância da acessibilidade na web.
 
+## Instalação local e build de produção
+
+Pré-requisitos: Node.js **22.12 ou superior** (Node 24 utilizado na validação e no CI) e npm.
+
+```sh
+git clone https://github.com/Bryan-Gabriel/inclusao-digital.git
+cd inclusao-digital
+npm ci
+npm run dev
+```
+
+O servidor de desenvolvimento fica disponível em `http://127.0.0.1:5173`. `npm ci` instala as versões reproduzíveis registradas no `package-lock.json`.
+
+```sh
+npm run build       # gera dist/ com os arquivos de produção
+npm run preview     # serve a build em http://127.0.0.1:4173
+npm run medir:build # compara builds equivalentes com e sem minificação
+```
+
+- **Vite 8.3.1**, configurado em `vite.config.js`, empacota os módulos e as dependências React com Rolldown; Oxc minifica JavaScript e Lightning CSS minifica estilos.
+- Um plugin de build usa **html-minifier-terser 7.2.0** para minificar `index.html` e os seis fragmentos de `html/` carregados por `fetch`. A opção `conservativeCollapse` conserva um espaço entre textos, e os atributos funcionais, IDs e nomes de classes são preservados.
+- `base: './'` permite servir a build na raiz ou em um subdiretório. Imports dinâmicos continuam separados em chunks com nomes versionados por hash; não são gerados source maps de produção.
+- Arquivos de `public/` são copiados para `dist/`; a imagem fica em `public/assets/images.jpg`. `node_modules/` e `dist/` são ignorados pelo Git.
+- A aplicação agora deve ser executada pelo servidor do Vite ou pela build. React faz parte do pacote de produção, sem importação da CDN em tempo de execução.
+
+Medição em bytes, sem gzip, entre duas builds de produção com as mesmas dependências e grafo de módulos:
+
+| Tipo | Sem minificação | Minificado | Redução |
+|---|---:|---:|---:|
+| HTML | 29.286 | 20.959 | 28,43% |
+| CSS | 47.149 | 36.854 | 21,84% |
+| JavaScript, incluindo React | 521.176 | 211.258 | 59,47% |
+| Total HTML + CSS + JS | 597.611 | 269.071 | 54,98% |
+
+O comando de medição gera uma referência temporária sem minificação e a build final em `dist/`; imagens e compressão HTTP ficam fora da comparação. Os valores podem mudar ao editar o projeto.
+
+Validação desta integração: build de produção aprovada, seis rotas e recursos conferidos na raiz e em um subdiretório, com checks focados de filtros React, perguntas, cadastro, modais, alto contraste, reflow a 320px e fallback quando um chunk React falha. O formulário manteve validação, máscaras e persistência; não houve erros JavaScript nem recursos HTTP 404 nos cenários normais.
+
+Referências: [build no Vite](https://vite.dev/guide/build.html) e [html-minifier-terser](https://github.com/terser/html-minifier-terser).
+
+## Publicação no GitHub Pages
+
+O workflow `.github/workflows/build-pages.yml` executa `npm ci` e `npm run build` nos PRs e nas branches `main` e `develop`. A publicação de `dist/` ocorre somente na `main`, após a revisão e o merge, ou por execução manual do workflow na `main`.
+
+Para usar essa publicação, selecione **Settings → Pages → Build and deployment → Source → GitHub Actions** no repositório. Publicar os arquivos-fonte diretamente pela branch não executa a build nem resolve as dependências npm. O workflow está preparado no código; a publicação remota depende dessa configuração e do merge na `main`.
+
 ## Funcionalidades
 
 ### Painel de participação com React
 
 - Cartões na página inicial para voluntariado, capacitação e doações, com filtros por categoria.
-- React e React DOM **19.2.4**, importados como módulos ES pela CDN esm.sh, com versões fixadas em um `importmap`.
+- React e React DOM **19.2.4**, instalados via npm, com versões fixadas no manifesto e no lockfile, e empacotados pelo Vite.
 - Estado do filtro controlado por `useState`, botões com `aria-pressed` e contagem de resultados anunciada por `role="status"`.
-- Carregamento sob demanda; os cartões em HTML continuam acessíveis se a CDN falhar.
+- Carregamento sob demanda; os cartões em HTML continuam acessíveis se o chunk React falhar.
 - Ao sair da página inicial, o roteador dispara o `AbortController` e o componente é desmontado com `root.unmount()`.
 - Perguntas expansíveis em Projeto e Contato e progresso do cadastro também usam componentes React.
 
@@ -81,7 +127,12 @@ Componentes próprios com a paleta do projeto, documentados e demonstrados em `#
 
 ```
 .
-├── index.html          # Estrutura da SPA, menu e importmap do React
+├── index.html          # Estrutura da SPA, menu e entrada do Vite
+├── package.json        # Dependências e comandos de desenvolvimento/build
+├── package-lock.json   # Versões reproduzíveis das dependências
+├── vite.config.js      # Empacotamento e minificação de HTML/CSS/JS
+├── scripts/
+│   └── medir-build.js  # Comparação de bytes antes/depois da minificação
 ├── html/               # Fragmentos HTML carregados pelo roteador
 │   ├── home.html        # Página inicial e cartões usados pelo React
 │   ├── projeto.html     # Atuação da ONG
@@ -108,8 +159,9 @@ Componentes próprios com a paleta do projeto, documentados e demonstrados em `#
 │       ├── participacao.js # Cartões e filtros
 │       ├── perguntas.js # Perguntas expansíveis
 │       └── progresso.js # Progresso do cadastro
-└── assets/
-    └── images.jpg
+└── public/
+    └── assets/
+        └── images.jpg
 ```
 
 ## Guia rápido dos componentes (para novos desenvolvedores)
@@ -200,12 +252,13 @@ Bryan Gabriel
 
 ## Tecnologias utilizadas
 
-HTML5 semântico, CSS3 (variáveis, Grid, Flexbox, media queries, transições e animações), JavaScript puro na aplicação principal, React e React DOM 19.2.4 via CDN em componentes de interface e boas práticas de acessibilidade web.
+HTML5 semântico, CSS3 (variáveis, Grid, Flexbox, media queries, transições e animações), JavaScript puro na aplicação principal, React e React DOM 19.2.4 via npm, Vite 8.3.1 e html-minifier-terser 7.2.0 na build, e boas práticas de acessibilidade web.
 
 ## Fluxo GitFlow
 
 - `main`: versão estável, atualizada após revisão e merge do pull request.
 - `develop`: integração das funcionalidades, com merges `--no-ff` para preservar a origem das mudanças.
 - `feature/spa-modular-react`: criada a partir de `develop`, reúne os passos desta entrega em commits com tipo, escopo e descrição.
+- `feature/build-vite`: integração da build de produção e da publicação dos arquivos compilados, originada na `develop` atualizada com a `main`.
 - `release/*`: preparação de versões quando houver um ciclo de lançamento separado.
 - `hotfix/*`: correções urgentes originadas de `main` e posteriormente integradas também a `develop`.
