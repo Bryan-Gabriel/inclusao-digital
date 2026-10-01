@@ -1,5 +1,5 @@
-/* Feedback: toasts, modais (<dialog>) e alertas dispensáveis. */
-(function () {
+/* Feedback: toasts, modais e alertas dispensáveis (módulo ES). */
+
   function getContainer() {
     var c = document.getElementById('toast-container');
     if (!c) {
@@ -44,7 +44,7 @@
     close.className = 'icon-btn';
     close.setAttribute('aria-label', 'Fechar notificação');
     close.textContent = '×';
-    close.addEventListener('click', function () { dismiss(el); });
+    close.addEventListener('click', function () { stop(); dismiss(el); });
 
     el.appendChild(content);
     el.appendChild(close);
@@ -52,13 +52,29 @@
 
     // Fecha sozinho; pausa enquanto o mouse/foco estiver sobre o toast
     var duration = opts.duration === undefined ? 5000 : opts.duration;
-    var timer;
-    function start() { if (duration > 0) timer = setTimeout(function () { dismiss(el); }, duration); }
-    function stop() { clearTimeout(timer); }
-    el.addEventListener('mouseenter', stop);
-    el.addEventListener('focusin', stop);
-    el.addEventListener('mouseleave', start);
-    el.addEventListener('focusout', start);
+    var timer = null;
+    var remaining = duration;
+    var startedAt = 0;
+    var hovered = false;
+    var focused = false;
+    function start() {
+      if (duration <= 0 || hovered || focused || timer !== null || el.classList.contains('is-leaving')) return;
+      startedAt = performance.now();
+      timer = setTimeout(function () { timer = null; dismiss(el); }, remaining);
+    }
+    function stop() {
+      if (timer === null) return;
+      clearTimeout(timer);
+      timer = null;
+      remaining = Math.max(0, remaining - (performance.now() - startedAt));
+    }
+    el.addEventListener('mouseenter', function () { hovered = true; stop(); });
+    el.addEventListener('focusin', function () { focused = true; stop(); });
+    el.addEventListener('mouseleave', function () { hovered = false; start(); });
+    el.addEventListener('focusout', function (e) {
+      focused = el.contains(e.relatedTarget);
+      if (!focused) start();
+    });
     start();
     return el;
   }
@@ -96,5 +112,5 @@
     if (e.target.tagName === 'DIALOG' && e.target.classList.contains('modal')) e.target.close();
   });
 
-  window.Feedback = { toast: toast, openModal: openModal, closeModal: closeModal };
-})();
+  window.Feedback = { toast, openModal, closeModal }; // compatibilidade com o guia de uso
+export { toast, openModal, closeModal };
