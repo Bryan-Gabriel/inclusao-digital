@@ -587,3 +587,25 @@ input:disabled, select:disabled {
   button, .button, input, select { transition: none; }
   button:not(.menu-toggle):hover, .button:hover { transform: none; }
 }
+
+/* Texto sempre branco nos botões-link (a:hover deixava o texto azul) */
+.button:hover,
+.button:focus-visible,
+.button:active { color: var(--color-white); }
+
+:root { --color-primary-darker: #062f7a; }
+
+#app[data-page="projeto"] .button {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+#app[data-page="projeto"] .button:hover {
+  background-color: var(--color-primary-dark);
+  color: var(--color-white);
+}
+/* Foco */
+#app[data-page="projeto"] .button:focus-visible,
+#app[data-page="projeto"] .button:active {
+  background-color: var(--color-primary-darker);
+  color: var(--color-white);
+}
