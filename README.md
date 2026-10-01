@@ -12,6 +12,16 @@ O site simula a página institucional de uma ONG fictícia chamada Acesso Digita
 
 ## Funcionalidades
 
+### Painel de participação com React
+
+- Cartões na página inicial para voluntariado, capacitação e doações, com filtros por categoria.
+- React e React DOM **19.2.4**, importados como módulos ES pela CDN esm.sh, com versões fixadas em um `importmap`.
+- Estado do filtro controlado por `useState`, botões com `aria-pressed` e contagem de resultados anunciada por `role="status"`.
+- Carregamento sob demanda; os cartões em HTML continuam acessíveis se a CDN falhar.
+- Ao sair da página inicial, o roteador dispara o `AbortController` e o componente é desmontado com `root.unmount()`.
+- Perguntas expansíveis em Projeto e Contato e progresso do cadastro também usam componentes React.
+
+
 ### Navegação responsiva
 
 - Menu horizontal com **dropdown** (submenu de "Projeto") em telas a partir de 768px.
@@ -35,7 +45,7 @@ Estados visuais distintos para `:hover` (fundo mais escuro, sombra e elevação)
 
 ### Componentes de feedback
 
-Biblioteca de estilos padronizada com a paleta do projeto, documentada e demonstrada em `componentes.html`:
+Componentes próprios com a paleta do projeto, documentados e demonstrados em `#/componentes`:
 
 | Componente | Descrição | Variantes |
 |---|---|---|
@@ -48,18 +58,32 @@ Biblioteca de estilos padronizada com a paleta do projeto, documentada e demonst
 
 ```
 .
-├── index.html          # Página inicial, com o menu responsivo
-├── projeto.html        # Atuação da ONG: objetivos, voluntariado, doações e parcerias
-├── cadastro.html       # Formulário de voluntários com validação e modal de confirmação
-├── contact.html        # Informações de contato
-├── componentes.html    # Catálogo dos componentes de feedback
+├── index.html          # Estrutura da SPA, menu e importmap do React
+├── html/               # Fragmentos HTML carregados pelo roteador
+│   ├── home.html        # Página inicial e cartões usados pelo React
+│   ├── projeto.html     # Atuação da ONG
+│   ├── cadastro.html    # Cadastro e lista local de voluntários
+│   ├── contato.html     # Informações de contato
+│   ├── componentes.html # Catálogo dos componentes próprios de feedback
+│   └── nao-encontrado.html
 ├── css/
 │   ├── styles.css      # Design tokens, layout, menu, botões e formulários
-│   └── feedback.css    # Badges, alertas, toasts e modais
+│   ├── feedback.css    # Badges, alertas, toasts e modais
+│   ├── spa.css         # Acessibilidade das rotas e validação
+│   ├── participacao.css # Aparência do painel de cartões
+│   └── interface.css   # Aparência das telas, perguntas e progresso
 ├── js/
-│   ├── menu.js         # Abre/fecha o menu hambúrguer
-│   ├── form.js         # Habilita o envio, abre o modal e dispara o toast
-│   └── feedback.js     # API de toasts, modais e alertas dispensáveis
+│   ├── main.js         # Inicializa menu e roteador em JavaScript puro
+│   ├── routes.js       # Define páginas e controladores sob demanda
+│   ├── core/           # Roteador, templates, DOM, armazenamento e validação
+│   ├── ui/             # Menu e feedback em JavaScript puro
+│   ├── pages/
+│   │   ├── home.js      # Carrega o componente React com tratamento de falhas
+│   │   └── cadastro.js  # Controlador do formulário
+│   └── components/
+│       ├── participacao.js # Cartões e filtros
+│       ├── perguntas.js # Perguntas expansíveis
+│       └── progresso.js # Progresso do cadastro
 └── assets/
     └── images.jpg
 ```
@@ -82,12 +106,14 @@ Regra geral: `componente componente--variante`. Alertas e toasts de erro usam `r
 ```
 
 ```js
-// Toast (carregar js/feedback.js)
-Feedback.toast({ type: 'success', title: 'Salvo!', message: 'Seus dados foram atualizados.' });
+import { toast, openModal, closeModal } from './js/ui/feedback.js';
+
+// Dentro de um script type="module".
+toast({ type: 'success', title: 'Salvo!', message: 'Seus dados foram atualizados.' });
 
 // Modal (elemento <dialog class="modal modal--info" id="meu-modal">)
-Feedback.openModal('meu-modal');
-Feedback.closeModal('meu-modal');
+openModal('meu-modal');
+closeModal('meu-modal');
 ```
 
 No HTML, também é possível usar atributos: `data-modal-open="id"`, `data-modal-close`, `data-toast="success"` (com `data-toast-title` e `data-toast-message`) e `data-alert-close`.
@@ -119,7 +145,7 @@ Atributos ARIA: aria-label em elementos de navegação, aria-labelledby associan
 
 Hierarquia de cabeçalhos: uso consistente de h1 a h3 respeitando a ordem lógica do conteúdo.
 
-Formulários acessíveis (cadastro.html):
+Formulários acessíveis (`#/cadastro`):
 - Todo campo possui label associado ao seu id via atributo for.
 - Uso de autocomplete (name, bday, email, tel, postal-code) para facilitar o preenchimento.
 - Uso de inputmode e pattern para orientar o tipo de teclado e validar formatos (CPF, CEP, telefone).
@@ -138,7 +164,7 @@ Texto alternativo em imagens: atributo alt descritivo na imagem da página inici
 
 Links descritivos: textos informativos em vez de "clique aqui", com rel="noopener noreferrer" em links externos que abrem em nova aba.
 
-Navegação consistente: todas as páginas internas possuem um link de retorno para a página inicial.
+Navegação consistente: o menu principal está disponível em todas as páginas, com acesso ao Início.
 
 ## Autor
 
@@ -148,4 +174,24 @@ Bryan Gabriel
 
 ## Tecnologias utilizadas
 
-HTML5 semântico, CSS3 (variáveis, Grid, Flexbox, media queries, transições e animações), JavaScript puro (sem bibliotecas) e boas práticas de acessibilidade web (WCAG).
+HTML5 semântico, CSS3 (variáveis, Grid, Flexbox, media queries, transições e animações), JavaScript puro na aplicação principal, React e React DOM 19.2.4 via CDN em componentes de interface e boas práticas de acessibilidade web.
+
+## Fluxo GitFlow
+
+- `main`: versão estável, atualizada após revisão e merge do pull request.
+- `develop`: integração das funcionalidades, com merges `--no-ff` para preservar a origem das mudanças.
+- `feature/spa-modular-react`: criada a partir de `develop`, reúne os passos desta entrega em commits com tipo, escopo e descrição.
+- `release/*`: preparação de versões quando houver um ciclo de lançamento separado.
+- `hotfix/*`: correções urgentes originadas de `main` e posteriormente integradas também a `develop`.
+
+Nesta entrega, a feature foi integrada a `develop`; o PR de `develop` para `main` aguarda revisão e merge pelo responsável. Não foram criadas branches vazias de release ou hotfix.
+
+## Executar a validação da SPA
+
+A suíte cobre 26 cenários, incluindo dados inválidos, falhas de armazenamento, perda de conexão, concorrência de rotas, histórico, teclado e indisponibilidade da CDN. Usa Node.js, Playwright e Google Chrome instalado.
+
+1. Instale a dependência de testes: `npm install --no-save --package-lock=false playwright`.
+2. Sirva esta pasta por HTTP, por exemplo com `python -m http.server 4173 --bind 127.0.0.1`.
+3. Execute `node tests/spa-validation.cjs`.
+
+`SPA_BASE_URL` permite trocar o endereço do servidor; `SPA_BROWSER_EXECUTABLE` permite indicar outro executável Chromium. O relatório JSON é gravado na pasta temporária do sistema. A aplicação continua usando React pela CDN, sem etapa de build.
