@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./css/spa.css">
     <link rel="stylesheet" href="./css/participacao.css">
     <link rel="stylesheet" href="./css/interface.css">
+    <link rel="stylesheet" href="./css/contraste.css">
     <script type="importmap">
         {
             "imports": {
@@ -23,7 +24,12 @@
     <a class="skip-link" href="#app">Pular para o conteúdo</a>
     <div class="container">
         <header>
-            <p class="site-kicker">Acesso Digital · Uma web para todos</p>
+            <div class="header-tools">
+                <p class="site-kicker">Acesso Digital · Uma web para todos</p>
+                <button id="contrast-toggle" class="contrast-toggle" type="button" aria-label="Alto contraste" aria-pressed="false">
+                    Alto contraste <span class="contrast-toggle__state" aria-hidden="true">Desativado</span>
+                </button>
+            </div>
             <h1 id="page-title" tabindex="-1">ONG Acesso Digital</h1>
         </header>
         <nav class="main-nav" aria-label="Navegação principal">
