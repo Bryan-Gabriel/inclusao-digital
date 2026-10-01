@@ -1,4 +1,4 @@
-/** Integrações progressivas: o HTML funciona antes de carregar a CDN. */
+/** Integrações progressivas: o HTML funciona antes de carregar os módulos React. */
 export async function initReactWidgets(app, { signal }) {
   const accordions = [...app.querySelectorAll('[data-react-accordion]')];
   const progress = app.querySelector('#cadastro-progresso-react');
