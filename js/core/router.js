@@ -60,7 +60,10 @@ async function renderRoute() {
   initReactWidgets(app, { signal: controller.signal });
 
   if (anchor && document.getElementById(anchor)) {
-    document.getElementById(anchor).scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    const target = document.getElementById(anchor);
+    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+    target.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    target.focus({ preventScroll: true });
   } else {
     window.scrollTo(0, 0);
     if (!first) $('#page-title').focus();     // acessibilidade: move o foco para o novo título
@@ -72,6 +75,13 @@ async function renderRoute() {
 
 function onClick(e) {
   if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  if (e.target.closest('.skip-link[href="#app"]')) {
+    e.preventDefault();
+    const app = $('#app');
+    app.focus({ preventScroll: true });
+    app.scrollIntoView();
+    return;
+  }
   if (e.target.closest('[data-route-retry]')) {
     // Imports rejeitados ficam no cache de módulos do navegador; recarregar permite buscá-los de novo.
     if (reloadRequired) location.reload();

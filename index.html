@@ -26,7 +26,7 @@
             <p class="site-kicker">Acesso Digital · Uma web para todos</p>
             <h1 id="page-title" tabindex="-1">ONG Acesso Digital</h1>
         </header>
-        <nav class="main-nav" aria-label="Main Navigation">
+        <nav class="main-nav" aria-label="Navegação principal">
             <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-principal">
                 <span class="menu-toggle__icon" aria-hidden="true"></span>
                 <span class="menu-toggle__label">Menu</span>
@@ -35,7 +35,11 @@
                 <li><a href="#/">Início</a></li>
                 <li class="has-submenu">
                     <a href="#/projeto">Projeto</a>
-                    <ul class="submenu">
+                    <button class="submenu-toggle" type="button" aria-expanded="false" aria-controls="projeto-submenu">
+                        <span class="sr-only">Seções de Projeto</span>
+                        <span aria-hidden="true">▾</span>
+                    </button>
+                    <ul id="projeto-submenu" class="submenu" hidden>
                         <li><a href="#/projeto/informacoes">Sobre a ONG</a></li>
                         <li><a href="#/projeto/objetivos">Nossos Objetivos</a></li>
                         <li><a href="#/projeto/detalhes">Como Atuamos</a></li>
@@ -47,7 +51,7 @@
                 <li><a href="#/componentes">Componentes</a></li>
             </ul>
         </nav>
-        <main id="app" tabindex="-1">
+        <main id="app" tabindex="-1" aria-labelledby="page-title">
             <noscript>
                 <p>Este site precisa de JavaScript ativado para carregar o conteúdo.</p>
             </noscript>
